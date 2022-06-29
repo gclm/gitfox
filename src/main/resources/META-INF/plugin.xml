@@ -1,18 +1,35 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.gclm.gitfox</id>
+    <id>club.gclmit.plugin.jetbrain.gitfox</id>
     <name>gitfox</name>
-    <vendor>gclm</vendor>
+    <vendor email="gclmit@163.com" url="https://github.com/gclm">gclm</vendor>
 
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.vcs</depends>
+
+    <actions>
+        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrain.gitfox.actions.CommitGuideAction"
+                text="Gitfox Commit Guide" icon="/icons/logo.svg">
+            <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
+        </action>
+    </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.gclm.gitfox.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.gclm.gitfox.services.MyProjectService"/>
+        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxConfig"
+                                 id="club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxConfig"
+                                 displayName="Gitfox"/>
+        <applicationService serviceImplementation="club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.gclm.gitfox.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <!--    <extensions defaultExtensionNs="com.intellij">-->
+    <!--        <applicationService serviceImplementation="com.github.gclm.gitfox.services.MyApplicationService"/>-->
+    <!--        <projectService serviceImplementation="com.github.gclm.gitfox.services.MyProjectService"/>-->
+    <!--    </extensions>-->
+
+    <!--    <applicationListeners>-->
+    <!--        <listener class="com.github.gclm.gitfox.listeners.MyProjectManagerListener"-->
+    <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
+    <!--    </applicationListeners>-->
 </idea-plugin>
