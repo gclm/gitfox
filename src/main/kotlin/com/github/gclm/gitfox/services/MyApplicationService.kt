@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.gclm.gitfox.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.gclm.gitfox.MyBundle
 
 class MyApplicationService {
 
