@@ -1,18 +1,10 @@
 package club.gclmit.plugin.jetbrain.gitfox.views;
 
 import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState;
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.AnActionEvent;
+import club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.ui.AnActionButton;
-import com.intellij.ui.DoubleClickListener;
-import com.intellij.ui.ToolbarDecorator;
-import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
 
 /**
  * TODO
@@ -24,11 +16,10 @@ import java.awt.event.MouseEvent;
 public class GitfoxSettingView {
     private JComboBox gitfoxServerList;
     private JLabel type;
-    private JTabbedPane tabbedPane;
-    private JPanel serverPanel;
     private JCheckBox showBranch;
     private JCheckBox useChinese;
     private JPanel mainPanel;
+    private JTable table1;
 
     // 配置
     protected GitfoxState gitfoxState;
@@ -67,7 +58,7 @@ public class GitfoxSettingView {
     }
 
     public void reset(GitfoxState gitfoxState) {
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
 //        ApplicationManager.getApplication().runWriteAction(() -> templateEditor.getDocument().setText(settings.getDateSettings().getTemplate()));
         gitfox.setShowBranch(showBranch.isSelected());
         gitfox.setUseChinese(useChinese.isSelected());
@@ -84,16 +75,17 @@ public class GitfoxSettingView {
     }
 
     public boolean isModified(GitfoxState data) {
-        if (!StringUtil.equals(gitfoxState.getGitfox().getType(), data.getGitfox().getType())) {
+        Gitfox gitfox = gitfoxState.getState();
+        if (!StringUtil.equals(gitfoxState.getState().getType(), data.getState().getType())) {
             return true;
         }
-        if (gitfoxState.getGitfox().isShowBranch() == data.getGitfox().isShowBranch()) {
+        if (gitfoxState.getState().isShowBranch() == data.getState().isShowBranch()) {
             return true;
         }
-        if (gitfoxState.getGitfox().isUseChinese() == data.getGitfox().isUseChinese()) {
+        if (gitfoxState.getState().isUseChinese() == data.getState().isUseChinese()) {
             return true;
         }
-        return gitfoxState.getGitfox().getGitfoxServers() == data.getGitfox().getGitfoxServers();
+        return gitfoxState.getState().getGitfoxServers() == data.getState().getGitfoxServers();
     }
 
 

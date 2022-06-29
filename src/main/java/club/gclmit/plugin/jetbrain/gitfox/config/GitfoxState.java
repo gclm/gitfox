@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.state;
+package club.gclmit.plugin.jetbrain.gitfox.config;
 
 import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrain.gitfox.model.GitfoxServer;
@@ -23,10 +23,10 @@ import java.util.List;
  */
 
 @State(
-        name = "club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState",
+        name = "club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxState",
         storages = @Storage("GitfoxState.xml")
 )
-public class GitfoxState implements PersistentStateComponent<GitfoxState> {
+public class GitfoxState implements PersistentStateComponent<Gitfox> {
     private static final Logger log = Logger.getInstance(GitfoxState.class);
 
     public GitfoxState() {
@@ -40,26 +40,15 @@ public class GitfoxState implements PersistentStateComponent<GitfoxState> {
 
     @Nullable
     @Override
-    public GitfoxState getState() {
-        if (null == this.gitfox) {
-            loadDefaultSettings();
-        }
-        return this;
-    }
-
-    @Override
-    public void loadState(@NotNull GitfoxState gitfoxState) {
-        XmlSerializerUtil.copyBean(gitfoxState, this);
-    }
-
-    public Gitfox getGitfox() {
+    public Gitfox getState() {
         if (null == this.gitfox) {
             loadDefaultSettings();
         }
         return gitfox;
     }
 
-    public void setGitfox(Gitfox gitfox) {
+    @Override
+    public void loadState(@NotNull Gitfox gitfox) {
         this.gitfox = gitfox;
     }
 

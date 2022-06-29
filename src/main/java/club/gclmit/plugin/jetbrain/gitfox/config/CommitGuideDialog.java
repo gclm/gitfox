@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.actions;
+package club.gclmit.plugin.jetbrain.gitfox.config;
 
 import club.gclmit.plugin.jetbrain.gitfox.views.CommitGuideView;
 import com.intellij.openapi.project.Project;

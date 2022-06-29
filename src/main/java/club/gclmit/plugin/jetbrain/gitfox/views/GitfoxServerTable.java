@@ -1,7 +1,7 @@
 package club.gclmit.plugin.jetbrain.gitfox.views;
 
 import club.gclmit.plugin.jetbrain.gitfox.model.GitfoxServer;
-import club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState;
+import club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.table.JBTable;
@@ -69,7 +69,7 @@ public class GitfoxServerTable extends JBTable {
     }
 
     public void commit(GitfoxState state) {
-        state.getGitfox().setGitfoxServers(gitfoxServers);
+        state.getState().setGitfoxServers(gitfoxServers);
     }
 
     public void addGitfoxServer() {
@@ -96,7 +96,7 @@ public class GitfoxServerTable extends JBTable {
 
     private void obtainGitfoxServers(@NotNull List<GitfoxServer> gitfoxServers, GitfoxState state) {
         gitfoxServers.clear();
-        gitfoxServers.addAll(state.getGitfox().getGitfoxServers());
+        gitfoxServers.addAll(state.getState().getGitfoxServers());
     }
 
     public boolean editGitfoxServer() {

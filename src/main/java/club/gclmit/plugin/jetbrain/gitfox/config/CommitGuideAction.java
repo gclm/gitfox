@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.actions;
+package club.gclmit.plugin.jetbrain.gitfox.config;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAwareAction;

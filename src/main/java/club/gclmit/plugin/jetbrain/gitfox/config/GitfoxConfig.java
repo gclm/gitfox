@@ -1,13 +1,10 @@
-package club.gclmit.plugin.jetbrain.gitfox.actions;
+package club.gclmit.plugin.jetbrain.gitfox.config;
 
 import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState;
 import club.gclmit.plugin.jetbrain.gitfox.views.GitfoxSettingComponent;
-import club.gclmit.plugin.jetbrain.gitfox.views.GitfoxSettingView;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.options.Configurable;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
@@ -26,7 +23,7 @@ public class GitfoxConfig implements Configurable {
     private final GitfoxState gitfoxState;
 
     public GitfoxConfig() {
-        gitfoxState = ServiceManager.getService(GitfoxState.class);
+        gitfoxState = GitfoxState.getInstance();
     }
 
     @Nls(capitalization = Nls.Capitalization.Title)
@@ -46,7 +43,7 @@ public class GitfoxConfig implements Configurable {
 
     @Override
     public boolean isModified() {
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
         boolean modified = gitfoxSettingComponent.getShowBranchStatus() != gitfox.isShowBranch();
         modified |= gitfoxSettingComponent.getUseChineseStatus() != gitfox.isUseChinese();
         return modified;
@@ -54,15 +51,15 @@ public class GitfoxConfig implements Configurable {
 
     @Override
     public void apply() {
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
         gitfox.setShowBranch(gitfoxSettingComponent.getShowBranchStatus());
         gitfox.setUseChinese(gitfoxSettingComponent.getUseChineseStatus());
-        gitfoxState.setGitfox(gitfox);
+        gitfoxState.loadState(gitfox);
     }
 
     @Override
     public void reset() {
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
         gitfoxSettingComponent.setShowBranchStatus(gitfox.isShowBranch());
         gitfoxSettingComponent.setUseChineseStatus(gitfox.isUseChinese());
     }

@@ -5,7 +5,7 @@ import club.gclmit.plugin.jetbrain.gitfox.model.CommitGuide;
 import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrain.gitfox.model.GitfoxServer;
 import club.gclmit.plugin.jetbrain.gitfox.services.CommitGuideService;
-import club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState;
+import club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState;
 import cn.hutool.core.util.StrUtil;
 import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.RepositoryImpl;
@@ -39,7 +39,7 @@ public class CommitGuideView {
 
     public CommitGuideView(Project project) {
         gitfoxState = ServiceManager.getService(GitfoxState.class);
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
         String type = gitfox.getType();
         GitfoxServer gitfoxServer = gitfox.getGitfoxServers().stream().filter(server -> type.equals(server.getKey())).findFirst().get();
         String url = gitfoxServer.getValue();
@@ -78,7 +78,7 @@ public class CommitGuideView {
     }
 
     public String getCommitMessage() {
-        Gitfox gitfox = gitfoxState.getGitfox();
+        Gitfox gitfox = gitfoxState.getState();
         String branch = gitBranch.getText().trim();
         if (StringUtils.isNotBlank(branch) && Objects.requireNonNull(gitfox).isShowBranch()) {
             return String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getEmoji(), shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH), branch);

@@ -10,17 +10,17 @@
     <depends>com.intellij.modules.vcs</depends>
 
     <actions>
-        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrain.gitfox.actions.CommitGuideAction"
+        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrain.gitfox.config.CommitGuideAction"
                 text="Gitfox Commit Guide" icon="/icons/logo.svg">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
         </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxConfig"
-                                 id="club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxConfig"
+        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxConfig"
+                                 id="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxConfig"
                                  displayName="Gitfox"/>
-        <applicationService serviceImplementation="club.gclmit.plugin.jetbrain.gitfox.state.GitfoxState"/>
+        <applicationService serviceImplementation="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState"/>
     </extensions>
 
     <!--    <extensions defaultExtensionNs="com.intellij">-->
