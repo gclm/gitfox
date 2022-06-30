@@ -1,10 +1,11 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.DialogWrapper;
+import javax.swing.*;
+
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
 
 /**
  * CommitGuide通知

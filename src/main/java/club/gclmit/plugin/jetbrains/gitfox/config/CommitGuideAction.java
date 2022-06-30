@@ -1,14 +1,16 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.plugin.jetbrains.gitfox.views.CommitGuideDialog;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.vcs.CommitMessageI;
 import com.intellij.openapi.vcs.VcsDataKeys;
 import com.intellij.openapi.vcs.ui.Refreshable;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import club.gclmit.plugin.jetbrains.gitfox.views.CommitGuideDialog;
 
 /**
  * 提交规范Action
@@ -18,6 +20,18 @@ import org.jetbrains.annotations.Nullable;
  * @since jdk11
  */
 public class CommitGuideAction extends DumbAwareAction {
+
+    @Nullable
+    private static CommitMessageI getCommitPanel(@Nullable AnActionEvent event) {
+        if (event == null) {
+            return null;
+        }
+        Refreshable data = Refreshable.PANEL_KEY.getData(event.getDataContext());
+        if (data instanceof CommitMessageI) {
+            return (CommitMessageI)data;
+        }
+        return VcsDataKeys.COMMIT_MESSAGE_CONTROL.getData(event.getDataContext());
+    }
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -31,17 +45,5 @@ public class CommitGuideAction extends DumbAwareAction {
         if (dialog.getExitCode() == DialogWrapper.OK_EXIT_CODE) {
             commitPanel.setCommitMessage(dialog.getCommitMessage());
         }
-    }
-
-    @Nullable
-    private static CommitMessageI getCommitPanel(@Nullable AnActionEvent event) {
-        if (event == null) {
-            return null;
-        }
-        Refreshable data = Refreshable.PANEL_KEY.getData(event.getDataContext());
-        if (data instanceof CommitMessageI) {
-            return (CommitMessageI) data;
-        }
-        return VcsDataKeys.COMMIT_MESSAGE_CONTROL.getData(event.getDataContext());
     }
 }

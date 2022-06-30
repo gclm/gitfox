@@ -23,6 +23,7 @@ Gitfox一只生活在git世界的超级狐，他具有以下技能: gitcommit提
 
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "gitfox"</kbd> >
   <kbd>Install Plugin</kbd>
+
 ---
 <!-- Plugin description end -->
 

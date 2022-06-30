@@ -1,17 +1,19 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.diagnostic.Logger;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
-import java.util.List;
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
 
 /**
  * gitfox 存储模块
@@ -21,23 +23,17 @@ import java.util.List;
  * @since jdk11
  */
 
-@State(
-        name = "club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxState",
-        storages = @Storage("GitfoxState.xml")
-)
+@State(name = "club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxState", storages = @Storage("GitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
-    private static final Logger log = Logger.getInstance(GitfoxState.class);
-
     public static final String DEFAULT_STYLE = "gitmoji";
+    private static final Logger log = Logger.getInstance(GitfoxState.class);
+    private Gitfox gitfox;
 
-    public GitfoxState() {
-    }
+    public GitfoxState() {}
 
     public static GitfoxState getInstance() {
         return ApplicationManager.getApplication().getService(GitfoxState.class);
     }
-
-    private Gitfox gitfox;
 
     @Nullable
     @Override
@@ -63,8 +59,10 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
             gitfox.setShowBranch(true);
             gitfox.setUseChinese(true);
             List<GitfoxServer> gitfoxServers = new LinkedList<>();
-            gitfoxServers.add(new GitfoxServer("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
-            gitfoxServers.add(new GitfoxServer("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
+            gitfoxServers
+                .add(new GitfoxServer("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
+            gitfoxServers
+                .add(new GitfoxServer("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
             gitfox.setGitfoxServers(gitfoxServers);
         } catch (Exception e) {
             log.error("loadDefaultSettings failed", e);

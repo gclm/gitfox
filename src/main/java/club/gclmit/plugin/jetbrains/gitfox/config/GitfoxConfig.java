@@ -1,12 +1,15 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.plugin.jetbrains.gitfox.views.GitfoxSettingView;
-import com.intellij.openapi.options.Configurable;
+import java.util.Objects;
+
+import javax.swing.*;
+
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import java.util.Objects;
+import com.intellij.openapi.options.Configurable;
+
+import club.gclmit.plugin.jetbrains.gitfox.views.GitfoxSettingView;
 
 /**
  * TODO
@@ -17,9 +20,8 @@ import java.util.Objects;
  */
 public class GitfoxConfig implements Configurable {
 
-    private GitfoxSettingView gitfoxSettingView;
-
     private final GitfoxState gitfoxState;
+    private GitfoxSettingView gitfoxSettingView;
 
     public GitfoxConfig() {
         gitfoxState = GitfoxState.getInstance();

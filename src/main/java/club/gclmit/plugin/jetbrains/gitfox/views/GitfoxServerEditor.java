@@ -1,18 +1,18 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import com.intellij.openapi.ui.DialogWrapper;
-import org.jetbrains.annotations.Nullable;
-
 import javax.swing.*;
 
+import org.jetbrains.annotations.Nullable;
+
+import com.intellij.openapi.ui.DialogWrapper;
+
+/**
+ * @author gclm
+ */
 public class GitfoxServerEditor extends DialogWrapper {
     private JPanel myPanel;
     private JTextField valueField;
     private JTextField keyField;
-
-    public interface Validator {
-        boolean isOk(String name, String value);
-    }
 
     public GitfoxServerEditor(String title, String key, String value) {
         super(true);
@@ -22,7 +22,9 @@ public class GitfoxServerEditor extends DialogWrapper {
         init();
     }
 
-    public String getKey() { return keyField.getText().trim(); }
+    public String getKey() {
+        return keyField.getText().trim();
+    }
 
     public String getValue() {
         return valueField.getText().trim();
@@ -32,5 +34,16 @@ public class GitfoxServerEditor extends DialogWrapper {
     @Override
     protected JComponent createCenterPanel() {
         return myPanel;
+    }
+
+    public interface Validator {
+        /**
+         * 效验输入格式
+         * 
+         * @param name key
+         * @param value value
+         * @return {@link boolean}
+         */
+        boolean isOk(String name, String value);
     }
 }

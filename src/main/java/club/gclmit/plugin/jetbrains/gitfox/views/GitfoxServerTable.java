@@ -1,21 +1,22 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
-import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.ui.JBColor;
-import com.intellij.ui.table.JBTable;
-import org.jetbrains.annotations.NotNull;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-import java.awt.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.ui.JBColor;
+import com.intellij.ui.table.JBTable;
+
+import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
+import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
 
 /**
  * TODO
@@ -29,9 +30,8 @@ public class GitfoxServerTable extends JBTable {
 
     private static final int NAME_COLUMN = 0;
     private static final int VALUE_COLUMN = 1;
-    private final GitfoxServerTableModel foxServerTableModel = new GitfoxServerTableModel();
-
     protected static List<GitfoxServer> gitfoxServers = new LinkedList<>();
+    private final GitfoxServerTableModel foxServerTableModel = new GitfoxServerTableModel();
 
     /**
      * instantiation AliasTable
@@ -42,12 +42,13 @@ public class GitfoxServerTable extends JBTable {
         TableColumn valueColumn = getColumnModel().getColumn(VALUE_COLUMN);
         column.setCellRenderer(new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                final Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+                final Component component =
+                    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 final String macroValue = getGitfoxServerValueAt(row);
-                component.setForeground(macroValue.length() == 0
-                        ? JBColor.RED
-                        : isSelected ? table.getSelectionForeground() : table.getForeground());
+                component.setForeground(macroValue.length() == 0 ? JBColor.RED
+                    : isSelected ? table.getSelectionForeground() : table.getForeground());
                 return component;
             }
         });
@@ -56,9 +57,8 @@ public class GitfoxServerTable extends JBTable {
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
-
     /**
-     * Set  Something  ColumnSize
+     * Set Something ColumnSize
      */
     public static void setColumnSize(TableColumn column, int preferedWidth, int maxWidth, int minWidth) {
         column.setPreferredWidth(preferedWidth);
@@ -66,11 +66,9 @@ public class GitfoxServerTable extends JBTable {
         column.setMinWidth(minWidth);
     }
 
-
     public String getGitfoxServerValueAt(int row) {
-        return (String) getValueAt(row, VALUE_COLUMN);
+        return (String)getValueAt(row, VALUE_COLUMN);
     }
-
 
     public void addGitfoxServer() {
         final GitfoxServerEditor macroEditor = new GitfoxServerEditor("添加Git提交规范", "", "");
@@ -97,7 +95,6 @@ public class GitfoxServerTable extends JBTable {
         setRowSelectionInterval(index1, index1);
     }
 
-
     public void moveDown() {
         int selectedRow = getSelectedRow();
         int index1 = selectedRow + 1;
@@ -106,7 +103,6 @@ public class GitfoxServerTable extends JBTable {
         }
         setRowSelectionInterval(index1, index1);
     }
-
 
     public void removeSelectedGitfoxServers() {
         final int[] selectedRows = getSelectedRows();
@@ -130,9 +126,8 @@ public class GitfoxServerTable extends JBTable {
         }
     }
 
-
     public void commit(GitfoxState state) {
-        state.getState().setGitfoxServers(new LinkedList<>(gitfoxServers));
+        Objects.requireNonNull(state.getState()).setGitfoxServers(new LinkedList<>(gitfoxServers));
     }
 
     public void resetDefaultGitfoxServers() {
@@ -143,7 +138,6 @@ public class GitfoxServerTable extends JBTable {
         obtainGitfoxServers(gitfoxServers, state);
         foxServerTableModel.fireTableDataChanged();
     }
-
 
     private int indexOfGitfoxServerWithName(String name) {
         for (int i = 0; i < gitfoxServers.size(); i++) {
@@ -172,13 +166,10 @@ public class GitfoxServerTable extends JBTable {
 
     private void obtainGitfoxServers(@NotNull List<GitfoxServer> servers, GitfoxState state) {
         servers.clear();
-        servers.addAll(state.getState().getGitfoxServers());
-//        for (GitfoxServer server : gitfox.getGitfoxServers()) {
-//            gitfoxServerList.addItem(server.getKey());
-//        }
+        servers.addAll(Objects.requireNonNull(state.getState()).getGitfoxServers());
     }
 
-    //==========================================================================//
+    // ==========================================================================//
 
     /**
      * EditValidator
@@ -190,11 +181,10 @@ public class GitfoxServerTable extends JBTable {
         }
     }
 
-
     /**
      * GitfoxServerTableModel
      */
-    private class GitfoxServerTableModel extends AbstractTableModel {
+    private static class GitfoxServerTableModel extends AbstractTableModel {
         @Override
         public int getColumnCount() {
             return 2;
@@ -225,8 +215,7 @@ public class GitfoxServerTable extends JBTable {
         }
 
         @Override
-        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        }
+        public void setValueAt(Object aValue, int rowIndex, int columnIndex) {}
 
         @Override
         public String getColumnName(int columnIndex) {

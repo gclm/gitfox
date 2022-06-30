@@ -1,32 +1,36 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
-import cn.hutool.core.collection.CollectionUtil;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.Objects;
+
+import javax.swing.*;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.ui.AnActionButton;
 import com.intellij.ui.DoubleClickListener;
 import com.intellij.ui.ToolbarDecorator;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import cn.hutool.core.collection.CollectionUtil;
 
 /**
- * TODO
+ * gitfox 配置视图
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/6/29 13:38
  * @since jdk11
  */
 public class GitfoxSettingView {
+    private final GitfoxServerTable gitfoxServerTable;
+    // 配置
+    protected GitfoxState gitfoxState;
     private JComboBox<String> gitfoxServerList;
     private JLabel type;
     private JCheckBox showBranch;
@@ -34,31 +38,26 @@ public class GitfoxSettingView {
     private JPanel mainPanel;
     private JTabbedPane servicePanel;
 
-    // 配置
-    protected GitfoxState gitfoxState;
-    private final GitfoxServerTable gitfoxServerTable;
-
     public GitfoxSettingView(GitfoxState state) {
         this.gitfoxState = state;
         gitfoxServerTable = new GitfoxServerTable();
 
-        //init otherSettingPanel
-        servicePanel.add(
-                ToolbarDecorator.createDecorator(gitfoxServerTable)
-                        .setAddAction(button -> gitfoxServerTable.addGitfoxServer())
-                        .setRemoveAction(button -> gitfoxServerTable.removeSelectedGitfoxServers())
-                        .setEditAction(button -> gitfoxServerTable.editGitfoxServer())
-                        .setMoveUpAction(button -> gitfoxServerTable.moveUp())
-                        .setMoveDownAction(button -> gitfoxServerTable.moveDown())
-                        .addExtraAction(new AnActionButton("Reset Default GitfoxServer", AllIcons.Actions.Rollback) {
-                            @Override
-                            public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-                                gitfoxServerTable.resetDefaultGitfoxServers();
-                            }
-                        }).createPanel(), BorderLayout.CENTER);
+        // init otherSettingPanel
+        servicePanel.add(ToolbarDecorator.createDecorator(gitfoxServerTable)
+            .setAddAction(button -> gitfoxServerTable.addGitfoxServer())
+            .setRemoveAction(button -> gitfoxServerTable.removeSelectedGitfoxServers())
+            .setEditAction(button -> gitfoxServerTable.editGitfoxServer())
+            .setMoveUpAction(button -> gitfoxServerTable.moveUp())
+            .setMoveDownAction(button -> gitfoxServerTable.moveDown())
+            .addExtraAction(new AnActionButton("Reset Default GitfoxServer", AllIcons.Actions.Rollback) {
+                @Override
+                public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+                    gitfoxServerTable.resetDefaultGitfoxServers();
+                }
+            }).createPanel(), BorderLayout.CENTER);
         new DoubleClickListener() {
             @Override
-            protected boolean onDoubleClick(MouseEvent e) {
+            protected boolean onDoubleClick(@NotNull MouseEvent e) {
                 return gitfoxServerTable.editGitfoxServer();
             }
         }.installOn(gitfoxServerTable);
@@ -66,7 +65,7 @@ public class GitfoxSettingView {
 
     public GitfoxState getState() {
         Gitfox gitfox = gitfoxState.getState();
-        gitfox.setType(gitfoxServerList.getSelectedItem().toString());
+        gitfox.setType(Objects.requireNonNull(gitfoxServerList.getSelectedItem()).toString());
         gitfox.setShowBranch(showBranch.isSelected());
         gitfox.setUseChinese(useChinese.isSelected());
         gitfoxServerTable.commit(gitfoxState);
@@ -92,21 +91,11 @@ public class GitfoxSettingView {
         if (!StringUtils.equalsIgnoreCase(gitfox.getType(), type)) {
             return true;
         }
-        List<String> keys = new ArrayList<>(gitfoxServerList.getItemCount());
-        for (int i = 0; i < gitfoxServerList.getItemCount(); i++) {
-            keys.add(gitfoxServerList.getItemAt(i));
+        if (gitfox.getUseChinese() != useChinese.isSelected()) {
+            return true;
         }
-        List<String> keys2 = gitfox.getGitfoxServers().stream().map(GitfoxServer::getKey).collect(Collectors.toList());
-        if (!CollectionUtil.isEqualList(keys, keys2)) {
-            gitfoxServerList.removeAllItems();
-            for (String key : keys2) {
-                gitfoxServerList.addItem(key);
-            }
-            if (keys2.contains(type)) {
-                gitfoxServerList.setSelectedItem(type);
-            } else {
-                gitfoxServerList.setSelectedItem(GitfoxState.DEFAULT_STYLE);
-            }
+        if (gitfox.getShowBranch() != showBranch.isSelected()) {
+            return true;
         }
         return !CollectionUtil.isEqualList(gitfoxState.getState().getGitfoxServers(), gitfox.getGitfoxServers());
     }
