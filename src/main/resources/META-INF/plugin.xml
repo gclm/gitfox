@@ -23,13 +23,4 @@
         <applicationService serviceImplementation="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState"/>
     </extensions>
 
-    <!--    <extensions defaultExtensionNs="com.intellij">-->
-    <!--        <applicationService serviceImplementation="com.github.gclm.gitfox.services.MyApplicationService"/>-->
-    <!--        <projectService serviceImplementation="com.github.gclm.gitfox.services.MyProjectService"/>-->
-    <!--    </extensions>-->
-
-    <!--    <applicationListeners>-->
-    <!--        <listener class="com.github.gclm.gitfox.listeners.MyProjectManagerListener"-->
-    <!--                  topic="com.intellij.openapi.project.ProjectManagerListener"/>-->
-    <!--    </applicationListeners>-->
 </idea-plugin>

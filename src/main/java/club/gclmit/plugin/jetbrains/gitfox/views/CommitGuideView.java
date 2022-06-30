@@ -37,7 +37,7 @@ public class CommitGuideView {
     private final GitfoxState gitfoxState;
 
     public CommitGuideView(Project project) {
-        gitfoxState = ServiceManager.getService(GitfoxState.class);
+        gitfoxState = GitfoxState.getInstance();
         Gitfox gitfox = gitfoxState.getState();
         String type = gitfox.getType();
         GitfoxServer gitfoxServer = gitfox.getGitfoxServers().stream().filter(server -> type.equals(server.getKey())).findFirst().get();
