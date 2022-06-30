@@ -1,13 +1,12 @@
-package club.gclmit.plugin.jetbrain.gitfox.config;
+package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrain.gitfox.model.GitfoxServer;
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +27,8 @@ import java.util.List;
 )
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
     private static final Logger log = Logger.getInstance(GitfoxState.class);
+
+    public static final String DEFAULT_STYLE = "gitmoji";
 
     public GitfoxState() {
     }
@@ -58,12 +59,12 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     private void loadDefaultSettings() {
         gitfox = new Gitfox();
         try {
-            gitfox.setType("gitmoji");
+            gitfox.setType(DEFAULT_STYLE);
             gitfox.setShowBranch(true);
             gitfox.setUseChinese(true);
             List<GitfoxServer> gitfoxServers = new LinkedList<>();
             gitfoxServers.add(new GitfoxServer("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
-            gitfoxServers.add(new GitfoxServer("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmojis.json"));
+            gitfoxServers.add(new GitfoxServer("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
             gitfox.setGitfoxServers(gitfoxServers);
         } catch (Exception e) {
             log.error("loadDefaultSettings failed", e);

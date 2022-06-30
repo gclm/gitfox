@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.model;
+package club.gclmit.plugin.jetbrains.gitfox.model;
 
 import lombok.*;
 

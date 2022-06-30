@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>club.gclmit.plugin.jetbrain.gitfox</id>
-    <name>gitfox</name>
+    <id>club.gclmit.plugin.jetbrains.gitfox</id>
+    <name>Gitfox</name>
     <vendor email="gclmit@163.com" url="https://github.com/gclm">gclm</vendor>
 
     <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
@@ -10,17 +10,17 @@
     <depends>com.intellij.modules.vcs</depends>
 
     <actions>
-        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrain.gitfox.config.CommitGuideAction"
+        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrains.gitfox.config.CommitGuideAction"
                 text="Gitfox Commit Guide" icon="/icons/logo.svg">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
         </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxConfig"
-                                 id="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxConfig"
+        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxConfig"
+                                 id="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxConfig"
                                  displayName="Gitfox"/>
-        <applicationService serviceImplementation="club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState"/>
+        <applicationService serviceImplementation="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState"/>
     </extensions>
 
     <!--    <extensions defaultExtensionNs="com.intellij">-->

@@ -1,12 +1,11 @@
-package club.gclmit.plugin.jetbrain.gitfox.views;
+package club.gclmit.plugin.jetbrains.gitfox.views;
 
 import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.plugin.jetbrain.gitfox.model.CommitGuide;
-import club.gclmit.plugin.jetbrain.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrain.gitfox.model.GitfoxServer;
-import club.gclmit.plugin.jetbrain.gitfox.services.CommitGuideService;
-import club.gclmit.plugin.jetbrain.gitfox.config.GitfoxState;
-import cn.hutool.core.util.StrUtil;
+import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
+import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.RepositoryImpl;
 import com.intellij.dvcs.repo.VcsRepositoryManager;
@@ -47,10 +46,7 @@ public class CommitGuideView {
         currentMessage = templateList.get(0);
 
         for (CommitGuide message : templateList) {
-            String content = message.getEmoji() + " " + message.getDescriptionEn();
-            if (gitfox.isUseChinese()) {
-                content = message.getEmoji() + " " + message.getDescription();
-            }
+            String content = gitfox.getUseChinese() ? message.getCode() + "(" + message.getDescription() + ")" : message.getCode() + "(" + message.getDescriptionEn() + ")";
             commitTemplateList.addItem(content);
         }
 
@@ -62,9 +58,9 @@ public class CommitGuideView {
 
         commitTemplateList.addItemListener(event -> {
             if (ItemEvent.SELECTED == event.getStateChange()) {
-                String content = StrUtil.subAfter(event.getItem().toString(), " ", false);
+                String content = StringUtils.subBetween(event.getItem().toString(), "(", ")");
                 for (CommitGuide message : templateList) {
-                    if (content.equals(message.getDescription())) {
+                    if (content.equals(message.getDescription()) || content.equals(message.getDescriptionEn())) {
                         currentMessage = message;
                         break;
                     }
@@ -80,10 +76,10 @@ public class CommitGuideView {
     public String getCommitMessage() {
         Gitfox gitfox = gitfoxState.getState();
         String branch = gitBranch.getText().trim();
-        if (StringUtils.isNotBlank(branch) && Objects.requireNonNull(gitfox).isShowBranch()) {
-            return String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getEmoji(), shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH), branch);
+        if (StringUtils.isNotBlank(branch) && Objects.requireNonNull(gitfox).getShowBranch()) {
+            return String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(), shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH), branch);
         } else {
-            return String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getEmoji(), shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH));
+            return String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(), shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH));
         }
     }
 

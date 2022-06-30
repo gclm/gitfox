@@ -23,11 +23,5 @@ Gitfox一只生活在git世界的超级狐，他具有以下技能: gitcommit提
 
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "gitfox"</kbd> >
   <kbd>Install Plugin</kbd>
-
-- Manually:
-
-  Download the [latest release](https://github.com/gclm/gitfox/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
-
 ---
 <!-- Plugin description end -->

@@ -1,5 +1,6 @@
-package club.gclmit.plugin.jetbrain.gitfox.config;
+package club.gclmit.plugin.jetbrains.gitfox.config;
 
+import club.gclmit.plugin.jetbrains.gitfox.views.CommitGuideDialog;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAwareAction;
 import com.intellij.openapi.ui.DialogWrapper;

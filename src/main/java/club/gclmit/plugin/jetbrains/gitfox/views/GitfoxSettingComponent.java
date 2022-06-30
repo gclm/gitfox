@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.views;
+package club.gclmit.plugin.jetbrains.gitfox.views;
 
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.util.ui.FormBuilder;

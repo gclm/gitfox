@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.model;
+package club.gclmit.plugin.jetbrains.gitfox.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
@@ -22,11 +22,6 @@ public class CommitGuide implements Serializable {
     public static final String COMMIT_GUIDE_TEMPLATE = "%s: %s \n\n%s";
 
     public static final String COMMIT_GUIDE_BRANCH_TEMPLATE = "%s: %s \n\n%s\n\nSubmit Branch: %s";
-
-    /**
-     * emoji
-     */
-    private String emoji;
 
     /**
      * code

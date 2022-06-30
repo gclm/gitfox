@@ -1,11 +1,10 @@
-package club.gclmit.plugin.jetbrain.gitfox.services;
+package club.gclmit.plugin.jetbrains.gitfox.services;
 
 import club.gclmit.chaos.core.http.HttpRequestClient;
 import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.plugin.jetbrain.gitfox.model.CommitGuide;
+import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 import com.alibaba.fastjson.JSONArray;
 import com.ejlchina.okhttps.OkHttps;
-import com.intellij.openapi.project.Project;
 
 import java.util.List;
 

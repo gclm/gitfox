@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrain.gitfox.model;
+package club.gclmit.plugin.jetbrains.gitfox.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Gitfox {
     private String type;
-    private boolean showBranch;
-    private boolean useChinese;
+    private Boolean showBranch;
+    private Boolean useChinese;
     private List<GitfoxServer> gitfoxServers;
 }

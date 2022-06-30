@@ -1,6 +1,5 @@
-package club.gclmit.plugin.jetbrain.gitfox.config;
+package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.plugin.jetbrain.gitfox.views.CommitGuideView;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import org.jetbrains.annotations.Nullable;
