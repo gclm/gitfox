@@ -1,0 +1,56 @@
+[{
+    "code": "feat",
+    "description_en": "A new feature",
+    "description": "增加新功能"
+  },
+  {
+    "code": "fix",
+    "description_en": "A bug fix",
+    "description": "修复问题/BUG"
+  },
+  {
+    "code": "docs",
+    "description_en": "Documentation only changes",
+    "description": "文档/注释"
+  },
+  {
+    "code": "style",
+    "description_en": "Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)",
+    "description": "代码风格相关无影响运行结果的"
+  },
+  {
+    "code": "perf",
+    "description_en": "A code change that improves performance",
+    "description": "优化/性能提升"
+  },
+  {
+    "code": "refactor",
+    "description_en": "A code change that neither fixes a bug nor adds a feature",
+    "description": "重构"
+  },
+  {
+    "code": "test",
+    "description_en": "Adding missing tests or correcting existing tests",
+    "description": "测试相关"
+  },
+  {
+    "code": "build",
+    "description_en": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)",
+    "description": "依赖更新/脚手架配置修改等"
+  },
+  {
+    "code": "ci",
+    "description_en": "Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)",
+    "description": "持续集成"
+  },
+  {
+    "code": "chore",
+    "description_en": "Other changes that don't modify src or test files",
+    "description": "其他修改（不涉及src/test）"
+  },
+  {
+    "code": "revert",
+    "description_en": "Reverts a previous commit",
+    "description": "撤销提交"
+  }
+]

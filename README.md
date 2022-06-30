@@ -25,3 +25,8 @@ Gitfox一只生活在git世界的超级狐，他具有以下技能: gitcommit提
   <kbd>Install Plugin</kbd>
 ---
 <!-- Plugin description end -->
+
+## 效果演示
+
+![](docs/screenshots/use.png)
+![](docs/screenshots/setting.png)
