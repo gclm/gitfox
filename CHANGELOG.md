@@ -2,6 +2,30 @@
 
 # Gitfox Changelog
 
+## [Unreleased]
+
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.4.0] - 2022-07-01
+
+### Added
+
+- 新增开源协议生成
+
+### Removed
+
+- 删除多余的GithubAction
+
 ## [0.3.1] - 2022-07-01
 
 ### Fixed
@@ -86,14 +110,3 @@
 ### Removed
 
 - Template cleanup
-
-## [Unreleased]
-
-### Added
-
-### Changed
-
-### Deprecated
-
-### Removed
-
