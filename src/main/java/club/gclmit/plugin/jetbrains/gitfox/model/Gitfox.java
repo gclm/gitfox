@@ -15,8 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Gitfox {
-    private String type;
-    private Boolean showBranch;
-    private Boolean useChinese;
-    private List<GitfoxServer> gitfoxServers;
+    private String style;
+    private String language;
+    private List<Item> items;
 }

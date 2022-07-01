@@ -4,7 +4,6 @@ import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 import javax.swing.*;
 
@@ -19,7 +18,7 @@ import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
 
 /**
@@ -28,26 +27,28 @@ import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
 public class CommitGuideView {
 
     private static final Integer MAX_LINE_LENGTH = 72;
-    private final GitfoxState gitfoxState;
     private JPanel mainPanel;
     private JComboBox<String> commitTemplateList;
     private JTextField gitBranch;
     private JTextField shortDescription;
     private JTextArea longDescription;
+    private JCheckBox skipCiCheckBox;
+    private JCheckBox showBranchCheckBox;
     private CommitGuide currentMessage;
 
     public CommitGuideView(Project project) {
-        gitfoxState = GitfoxState.getInstance();
-        Gitfox gitfox = gitfoxState.getState();
-        String type = gitfox.getType();
-        GitfoxServer gitfoxServer =
-            gitfox.getGitfoxServers().stream().filter(server -> type.equals(server.getKey())).findFirst().get();
-        String url = gitfoxServer.getValue();
+        Gitfox gitfox = GitfoxState.getInstance().getState();
+        assert gitfox != null;
+        String type = gitfox.getStyle();
+        Item item = gitfox.getItems().stream().filter(server -> type.equals(server.getKey())).findFirst().get();
+
+        String url = item.getValue();
         List<CommitGuide> templateList = CommitGuideService.getCommitGuideRule(url);
         currentMessage = templateList.get(0);
 
         for (CommitGuide message : templateList) {
-            String content = gitfox.getUseChinese() ? message.getCode() + "(" + message.getDescription() + ")"
+            String content = GitfoxState.DEFAULT_LANGUAGE.equals(gitfox.getLanguage())
+                ? message.getCode() + "(" + message.getDescription() + ")"
                 : message.getCode() + "(" + message.getDescriptionEn() + ")";
             commitTemplateList.addItem(content);
         }
@@ -76,15 +77,13 @@ public class CommitGuideView {
     }
 
     public String getCommitMessage() {
-        Gitfox gitfox = gitfoxState.getState();
         String branch = gitBranch.getText().trim();
-        if (StringUtils.isNotBlank(branch) && Objects.requireNonNull(gitfox).getShowBranch()) {
-            return String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(),
+        String commitMessage = String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(),
+            shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH));
+        if (StringUtils.isNotBlank(branch) && showBranchCheckBox.isSelected()) {
+            commitMessage = String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(),
                 shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH), branch);
-        } else {
-            return String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(),
-                shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH));
         }
+        return skipCiCheckBox.isSelected() ? commitMessage + CommitGuide.CI_TEMPLATE : commitMessage;
     }
-
 }

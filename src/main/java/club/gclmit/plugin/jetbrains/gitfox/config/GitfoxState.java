@@ -1,5 +1,6 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.diagnostic.Logger;
 
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 
 /**
  * gitfox 存储模块
@@ -23,9 +24,18 @@ import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
  * @since jdk11
  */
 
-@State(name = "club.gclmit.plugin.jetbrain.gitfox.actions.GitfoxState", storages = @Storage("GitfoxState.xml"))
+@State(name = "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState", storages = @Storage("gitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
     public static final String DEFAULT_STYLE = "gitmoji";
+    public static final String DEFAULT_LANGUAGE = "中文";
+
+    public static List<String> LANGUAGE_List = new ArrayList<>(5);
+
+    static {
+        LANGUAGE_List.add("中文");
+        LANGUAGE_List.add("English");
+    }
+
     private static final Logger log = Logger.getInstance(GitfoxState.class);
     private Gitfox gitfox;
 
@@ -55,15 +65,12 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     private void loadDefaultSettings() {
         gitfox = new Gitfox();
         try {
-            gitfox.setType(DEFAULT_STYLE);
-            gitfox.setShowBranch(true);
-            gitfox.setUseChinese(true);
-            List<GitfoxServer> gitfoxServers = new LinkedList<>();
-            gitfoxServers
-                .add(new GitfoxServer("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
-            gitfoxServers
-                .add(new GitfoxServer("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
-            gitfox.setGitfoxServers(gitfoxServers);
+            gitfox.setStyle(DEFAULT_STYLE);
+            gitfox.setLanguage(DEFAULT_LANGUAGE);
+            List<Item> items = new LinkedList<>();
+            items.add(new Item("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
+            items.add(new Item("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
+            gitfox.setItems(items);
         } catch (Exception e) {
             log.error("loadDefaultSettings failed", e);
         }

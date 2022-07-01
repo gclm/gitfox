@@ -2,7 +2,9 @@ package club.gclmit.plugin.jetbrains.gitfox.views;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.swing.*;
 
@@ -17,7 +19,7 @@ import com.intellij.ui.ToolbarDecorator;
 import club.gclmit.chaos.core.utils.StringUtils;
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.GitfoxServer;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import cn.hutool.core.collection.CollectionUtil;
 
 /**
@@ -28,76 +30,78 @@ import cn.hutool.core.collection.CollectionUtil;
  * @since jdk11
  */
 public class GitfoxSettingView {
-    private final GitfoxServerTable gitfoxServerTable;
+    private final ItemTable itemTable;
     // 配置
     protected GitfoxState gitfoxState;
-    private JComboBox<String> gitfoxServerList;
-    private JLabel type;
-    private JCheckBox showBranch;
-    private JCheckBox useChinese;
     private JPanel mainPanel;
-    private JTabbedPane servicePanel;
+    private JTabbedPane itemPanel;
+    private JComboBox<String> languages;
+    private JComboBox<String> styles;
 
     public GitfoxSettingView(GitfoxState state) {
         this.gitfoxState = state;
-        gitfoxServerTable = new GitfoxServerTable();
+        itemTable = new ItemTable();
 
         // init otherSettingPanel
-        servicePanel.add(ToolbarDecorator.createDecorator(gitfoxServerTable)
-            .setAddAction(button -> gitfoxServerTable.addGitfoxServer())
-            .setRemoveAction(button -> gitfoxServerTable.removeSelectedGitfoxServers())
-            .setEditAction(button -> gitfoxServerTable.editGitfoxServer())
-            .setMoveUpAction(button -> gitfoxServerTable.moveUp())
-            .setMoveDownAction(button -> gitfoxServerTable.moveDown())
+        itemPanel.add(ToolbarDecorator.createDecorator(itemTable).setAddAction(button -> itemTable.addGitfoxServer())
+            .setRemoveAction(button -> itemTable.removeSelectedGitfoxServers())
+            .setEditAction(button -> itemTable.editGitfoxServer()).setMoveUpAction(button -> itemTable.moveUp())
+            .setMoveDownAction(button -> itemTable.moveDown())
             .addExtraAction(new AnActionButton("Reset Default GitfoxServer", AllIcons.Actions.Rollback) {
                 @Override
                 public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-                    gitfoxServerTable.resetDefaultGitfoxServers();
+                    itemTable.resetDefaultGitfoxServers();
                 }
             }).createPanel(), BorderLayout.CENTER);
         new DoubleClickListener() {
             @Override
             protected boolean onDoubleClick(@NotNull MouseEvent e) {
-                return gitfoxServerTable.editGitfoxServer();
+                return itemTable.editGitfoxServer();
             }
-        }.installOn(gitfoxServerTable);
-    }
-
-    public GitfoxState getState() {
-        Gitfox gitfox = gitfoxState.getState();
-        gitfox.setType(Objects.requireNonNull(gitfoxServerList.getSelectedItem()).toString());
-        gitfox.setShowBranch(showBranch.isSelected());
-        gitfox.setUseChinese(useChinese.isSelected());
-        gitfoxServerTable.commit(gitfoxState);
-        return gitfoxState;
+        }.installOn(itemTable);
     }
 
     public void reset(GitfoxState gitfoxState) {
         Gitfox gitfox = gitfoxState.getState();
-        for (GitfoxServer server : gitfox.getGitfoxServers()) {
-            gitfoxServerList.addItem(server.getKey());
+        gitfox.getItems().stream().map(Item::getKey).forEach(styles::addItem);
+        if (StringUtils.isNotBlank(gitfox.getStyle())) {
+            styles.setSelectedItem(gitfox.getStyle());
         }
-        if (StringUtils.isNotBlank(gitfox.getType())) {
-            gitfoxServerList.setSelectedItem(gitfox.getType());
+        GitfoxState.LANGUAGE_List.forEach(languages::addItem);
+        if (StringUtils.isNotBlank(gitfox.getLanguage())) {
+            styles.setSelectedItem(gitfox.getLanguage());
         }
-        showBranch.setSelected(gitfox.getShowBranch());
-        useChinese.setSelected(gitfox.getUseChinese());
-        gitfoxServerTable.reset(gitfoxState);
+        itemTable.reset(gitfox.getItems());
+    }
+
+    public GitfoxState getState() {
+        Gitfox gitfox = gitfoxState.getState();
+        gitfox.setStyle((String)styles.getSelectedItem());
+        gitfox.setLanguage((String)languages.getSelectedItem());
+        gitfox.setItems(itemTable.getItems());
+        return gitfoxState;
     }
 
     public boolean isModified(GitfoxState state) {
         Gitfox gitfox = state.getState();
-        String type = gitfoxServerList.getSelectedItem().toString().trim();
-        if (!StringUtils.equalsIgnoreCase(gitfox.getType(), type)) {
+        String style = Objects.requireNonNull(styles.getSelectedItem()).toString().trim();
+        String language = Objects.requireNonNull(languages.getSelectedItem()).toString().trim();
+        List<Item> items = itemTable.getItems();
+        List<String> updateStyles = items.stream().map(Item::getKey).collect(Collectors.toList());
+        if (!StringUtils.equalsIgnoreCase(gitfox.getStyle(), style)) {
             return true;
         }
-        if (gitfox.getUseChinese() != useChinese.isSelected()) {
+        if (!StringUtils.equalsIgnoreCase(gitfox.getLanguage(), language)) {
             return true;
         }
-        if (gitfox.getShowBranch() != showBranch.isSelected()) {
+
+        if (!updateStyles.contains(style)) {
+            styles.removeAllItems();
+            updateStyles.forEach(styles::addItem);
+            styles.setSelectedIndex(0);
             return true;
         }
-        return !CollectionUtil.isEqualList(gitfoxState.getState().getGitfoxServers(), gitfox.getGitfoxServers());
+        return !CollectionUtil.isEqualList(gitfoxState.getState().getItems(), items);
     }
 
     public JPanel getMainPanel() {

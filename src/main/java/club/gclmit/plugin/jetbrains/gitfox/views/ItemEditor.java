@@ -9,12 +9,12 @@ import com.intellij.openapi.ui.DialogWrapper;
 /**
  * @author gclm
  */
-public class GitfoxServerEditor extends DialogWrapper {
+public class ItemEditor extends DialogWrapper {
     private JPanel myPanel;
     private JTextField valueField;
     private JTextField keyField;
 
-    public GitfoxServerEditor(String title, String key, String value) {
+    public ItemEditor(String title, String key, String value) {
         super(true);
         setTitle(title);
         keyField.setText(key);
