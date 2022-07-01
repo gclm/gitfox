@@ -11,9 +11,9 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false)
-public class GitfoxServer {
+public class Item {
 
-    public String key;
-    public String value;
+    private String key;
+    private String value;
 
 }

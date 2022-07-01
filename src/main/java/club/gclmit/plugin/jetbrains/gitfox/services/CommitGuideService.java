@@ -1,12 +1,13 @@
 package club.gclmit.plugin.jetbrains.gitfox.services;
 
-import club.gclmit.chaos.core.http.HttpRequestClient;
-import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
+import java.util.List;
+
 import com.alibaba.fastjson.JSONArray;
 import com.ejlchina.okhttps.OkHttps;
 
-import java.util.List;
+import club.gclmit.chaos.core.http.HttpRequestClient;
+import club.gclmit.chaos.core.utils.StringUtils;
+import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 
 /**
  * Git服务
@@ -17,11 +18,13 @@ import java.util.List;
  */
 public class CommitGuideService {
 
-    private static final String DEFAULT_SERVER_URL = "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json";
+    private static final String DEFAULT_SERVER_URL =
+        "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json";
 
     public static List<CommitGuide> getCommitGuideRule(String serverUrl) {
         serverUrl = StringUtils.isBlank(serverUrl) ? DEFAULT_SERVER_URL : serverUrl;
-        String result = OkHttps.async(serverUrl).addHeader(HttpRequestClient.header()).get().getResult().getBody().toString();
+        String result =
+            OkHttps.async(serverUrl).addHeader(HttpRequestClient.header()).get().getResult().getBody().toString();
         return JSONArray.parseArray(result, CommitGuide.class);
     }
 }

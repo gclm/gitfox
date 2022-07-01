@@ -1,9 +1,9 @@
 package club.gclmit.plugin.jetbrains.gitfox.model;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /**
  * 插件配置
@@ -15,8 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 public class Gitfox {
-    private String type;
-    private Boolean showBranch;
-    private Boolean useChinese;
-    private List<GitfoxServer> gitfoxServers;
+    private String style;
+    private String language;
+    private List<Item> items;
 }
