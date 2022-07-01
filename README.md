@@ -27,5 +27,6 @@ Gitfox一只生活在git世界的超级狐，他具有以下技能: gitcommit提
 
 ## 效果演示
 
+![](docs/screenshots/use2.png)
 ![](docs/screenshots/use1.png)
 ![](docs/screenshots/setting.png)
