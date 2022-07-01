@@ -24,9 +24,8 @@ import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
 /**
  * @author gclm
  */
-public class CommitGuideView {
+public class CommitGuidePanel {
 
-    private static final Integer MAX_LINE_LENGTH = 72;
     private JPanel mainPanel;
     private JComboBox<String> commitTemplateList;
     private JTextField gitBranch;
@@ -36,20 +35,17 @@ public class CommitGuideView {
     private JCheckBox showBranchCheckBox;
     private CommitGuide currentMessage;
 
-    public CommitGuideView(Project project) {
+    public CommitGuidePanel(Project project) {
         Gitfox gitfox = GitfoxState.getInstance().getState();
-        assert gitfox != null;
-        String type = gitfox.getStyle();
-        Item item = gitfox.getItems().stream().filter(server -> type.equals(server.getKey())).findFirst().get();
+        Item item = Item.getItem(gitfox.getItems(), gitfox.getStyle(), true);
+        String url = null != item ? item.getValue() : null;
 
-        String url = item.getValue();
         List<CommitGuide> templateList = CommitGuideService.getCommitGuideRule(url);
         currentMessage = templateList.get(0);
-
         for (CommitGuide message : templateList) {
             String content = GitfoxState.DEFAULT_LANGUAGE.equals(gitfox.getLanguage())
-                ? message.getCode() + "(" + message.getDescription() + ")"
-                : message.getCode() + "(" + message.getDescriptionEn() + ")";
+                ? message.getCode() + "(" + message.getDescriptionEn() + ")"
+                : message.getCode() + "(" + message.getDescription() + ")";
             commitTemplateList.addItem(content);
         }
 
@@ -79,10 +75,12 @@ public class CommitGuideView {
     public String getCommitMessage() {
         String branch = gitBranch.getText().trim();
         String commitMessage = String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(),
-            shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH));
+            shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH));
+
         if (StringUtils.isNotBlank(branch) && showBranchCheckBox.isSelected()) {
             commitMessage = String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(),
-                shortDescription.getText(), WordUtils.wrap(longDescription.getText(), MAX_LINE_LENGTH), branch);
+                shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH),
+                branch);
         }
         return skipCiCheckBox.isSelected() ? commitMessage + CommitGuide.CI_TEMPLATE : commitMessage;
     }

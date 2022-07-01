@@ -15,11 +15,11 @@ import com.intellij.openapi.ui.DialogWrapper;
  */
 public class CommitGuideDialog extends DialogWrapper {
 
-    private final CommitGuideView panel;
+    private final CommitGuidePanel panel;
 
     public CommitGuideDialog(@Nullable Project project) {
         super(project);
-        panel = new CommitGuideView(project);
+        panel = new CommitGuidePanel(project);
         setTitle("Commit");
         setOKButtonText("OK");
         init();

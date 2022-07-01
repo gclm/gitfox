@@ -15,6 +15,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.table.JBTable;
 
+import club.gclmit.chaos.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 
 /**
@@ -71,7 +72,7 @@ public class ItemTable extends JBTable {
     }
 
     public void addGitfoxServer() {
-        final ItemEditor macroEditor = new ItemEditor("添加Git提交规范", "", "");
+        final ItemEditorPanel macroEditor = new ItemEditorPanel("Add Commit Server", "", "");
         if (macroEditor.showAndGet()) {
             final String name = macroEditor.getKey();
             items.add(new Item(macroEditor.getKey(), macroEditor.getValue()));
@@ -131,12 +132,7 @@ public class ItemTable extends JBTable {
     }
 
     public void reset(List<Item> data) {
-        items.clear();
-        items.addAll(data);
-        foxServerTableModel.fireTableDataChanged();
-    }
-
-    public void resetDefaultGitfoxServers() {
+        items = BeanUtils.copyList(data, Item.class);
         foxServerTableModel.fireTableDataChanged();
     }
 
@@ -156,7 +152,7 @@ public class ItemTable extends JBTable {
         }
         final int selectedRow = getSelectedRow();
         final Item server = items.get(selectedRow);
-        final ItemEditor editor = new ItemEditor("修改Git提交规范", server.getKey(), server.getValue());
+        final ItemEditorPanel editor = new ItemEditorPanel("Update Commit Server", server.getKey(), server.getValue());
         if (editor.showAndGet()) {
             server.setKey(editor.getKey());
             server.setValue(editor.getValue());
@@ -170,7 +166,7 @@ public class ItemTable extends JBTable {
     /**
      * EditValidator
      */
-    private static class EditValidator implements ItemEditor.Validator {
+    private static class EditValidator implements ItemEditorPanel.Validator {
         @Override
         public boolean isOk(String name, String value) {
             return !name.isEmpty() && !value.isEmpty();
@@ -217,9 +213,9 @@ public class ItemTable extends JBTable {
         public String getColumnName(int columnIndex) {
             switch (columnIndex) {
                 case NAME_COLUMN:
-                    return "服务Code";
+                    return "Commit Code";
                 case VALUE_COLUMN:
-                    return "服务地址";
+                    return "Commit Server";
                 default:
                     log.error("Wrong indices");
                     return null;

@@ -11,7 +11,6 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.diagnostic.Logger;
 
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
@@ -27,16 +26,15 @@ import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 @State(name = "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState", storages = @Storage("gitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
     public static final String DEFAULT_STYLE = "gitmoji";
-    public static final String DEFAULT_LANGUAGE = "中文";
+    public static final String DEFAULT_LANGUAGE = "English";
 
     public static List<String> LANGUAGE_List = new ArrayList<>(5);
 
     static {
-        LANGUAGE_List.add("中文");
+        LANGUAGE_List.add("Chinese");
         LANGUAGE_List.add("English");
     }
 
-    private static final Logger log = Logger.getInstance(GitfoxState.class);
     private Gitfox gitfox;
 
     public GitfoxState() {}
@@ -48,9 +46,6 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     @Nullable
     @Override
     public Gitfox getState() {
-        if (null == this.gitfox) {
-            loadDefaultSettings();
-        }
         return gitfox;
     }
 
@@ -62,18 +57,15 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     /**
      * 加载默认配置
      */
-    private void loadDefaultSettings() {
-        gitfox = new Gitfox();
-        try {
-            gitfox.setStyle(DEFAULT_STYLE);
-            gitfox.setLanguage(DEFAULT_LANGUAGE);
-            List<Item> items = new LinkedList<>();
-            items.add(new Item("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
-            items.add(new Item("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
-            gitfox.setItems(items);
-        } catch (Exception e) {
-            log.error("loadDefaultSettings failed", e);
-        }
+    public static Gitfox loadDefaultSettings() {
+        Gitfox gitfox = new Gitfox();
+        gitfox.setStyle(DEFAULT_STYLE);
+        gitfox.setLanguage(DEFAULT_LANGUAGE);
+        List<Item> items = new LinkedList<>();
+        items.add(new Item("gitmoji", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/gitmoji.json"));
+        items.add(new Item("angular", "https://gclm.coding.net/p/cdn/d/public/git/raw/master/angular.json"));
+        gitfox.setItems(items);
+        return gitfox;
     }
 
 }
