@@ -3,7 +3,23 @@
 # Gitfox Changelog
 
 ## [Unreleased]
+
+### Added
+
 ### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.4.1] - 2022-07-28
+
+### Changed
+
 - docs: 更新readme文档
 - docs: 调整协议为MPL-2
 - docs: 优化angular规范中文翻译
