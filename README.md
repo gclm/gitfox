@@ -30,3 +30,18 @@ Gitfox一只生活在git世界的超级狐，他具有以下技能: gitcommit提
 ![](docs/screenshots/use2.png)
 ![](docs/screenshots/use1.png)
 ![](docs/screenshots/setting.png)
+![](docs/screenshots/reset.png)
+
+## 自定义效验规则
+
+- 数据结构
+
+```
+{
+  "code": "feat",
+  "description_en": "A new feature",
+  "description": "增加新功能"
+},
+```
+
+- 实例 [Angular](docs/specification/angular.json)
