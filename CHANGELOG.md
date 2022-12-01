@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.5.0] - 2022-12-01
+
 ### Fixed
 
 - fix: 新增支持2022.3
@@ -18,19 +32,15 @@
 - build：lombok升级到1.18.24
 
 ## [0.4.1] - 2022-07-28
-
 ### Changed
-
 - docs: 更新readme文档
 - docs: 调整协议为MPL-2
 - docs: 优化angular规范中文翻译
 
 ### Deprecated
-
 - build: 新增支持2022.2
 
 ### Fixed
-
 - refactor：重构插件图标
 - refactor：更新默认的插件配置
 
