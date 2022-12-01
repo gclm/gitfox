@@ -4,17 +4,18 @@
 
 ## [Unreleased]
 
-### Added
+### Fixed
+
+- fix: 新增支持2022.3
+- fix: 删除过期方法
 
 ### Changed
 
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
+- build: jdk11 -> jdk17
+- build: gradle升级到7.6
+- build: intellij升级到1.10.0
+- build: chaos升级到gear4j
+- build：lombok升级到1.18.24
 
 ## [0.4.1] - 2022-07-28
 

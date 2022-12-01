@@ -1,23 +1,20 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.swing.*;
-
-import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import com.intellij.openapi.options.SearchableConfigurable;
-
-import club.gclmit.chaos.core.utils.BeanUtils;
+import club.gclmit.gear4j.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import club.gclmit.plugin.jetbrains.gitfox.views.GitfoxSettingPanel;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.intellij.openapi.options.SearchableConfigurable;
+import org.jetbrains.annotations.Nls;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * GitfoxConfig
