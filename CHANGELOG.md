@@ -8,6 +8,8 @@
 
 ### Changed
 
+- 更新配置文件地址
+
 ### Deprecated
 
 ### Removed

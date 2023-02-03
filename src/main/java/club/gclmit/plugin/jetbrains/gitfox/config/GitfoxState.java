@@ -1,19 +1,17 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * gitfox 存储模块
@@ -62,8 +60,8 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
         gitfox.setStyle(DEFAULT_STYLE);
         gitfox.setLanguage(DEFAULT_LANGUAGE);
         List<Item> items = new LinkedList<>();
-        items.add(new Item("gitmoji", "https://dev.coderlab.cn/gitfox/gitmoji.json"));
-        items.add(new Item("angular", "https://dev.coderlab.cn/gitfox/angular.json"));
+        items.add(new Item("gitmoji", "https://gclm-generic.pkg.coding.net/apps/gitfox/gitmoji.json?version=latest"));
+        items.add(new Item("angular", "https://gclm-generic.pkg.coding.net/apps/gitfox/angular.json?version=latest"));
         gitfox.setItems(items);
         return gitfox;
     }
