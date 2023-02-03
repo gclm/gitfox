@@ -1,13 +1,12 @@
 package club.gclmit.plugin.jetbrains.gitfox.services;
 
-import java.util.List;
-
+import club.gclmit.gear4j.core.http.HttpClient;
+import club.gclmit.gear4j.core.utils.StringUtils;
+import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 import com.alibaba.fastjson.JSONArray;
 import com.ejlchina.okhttps.OkHttps;
 
-import club.gclmit.chaos.core.http.HttpRequestClient;
-import club.gclmit.chaos.core.utils.StringUtils;
-import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
+import java.util.List;
 
 /**
  * Git服务
@@ -24,7 +23,7 @@ public class CommitGuideService {
     public static List<CommitGuide> getCommitGuideRule(String serverUrl) {
         serverUrl = StringUtils.isBlank(serverUrl) ? DEFAULT_SERVER_URL : serverUrl;
         String result =
-            OkHttps.async(serverUrl).addHeader(HttpRequestClient.header()).get().getResult().getBody().toString();
+                OkHttps.async(serverUrl).addHeader(HttpClient.header()).get().getResult().getBody().toString();
         return JSONArray.parseArray(result, CommitGuide.class);
     }
 }

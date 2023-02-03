@@ -1,22 +1,20 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import club.gclmit.gear4j.core.utils.BeanUtils;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.ui.JBColor;
+import com.intellij.ui.table.JBTable;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
-
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.ui.JBColor;
-import com.intellij.ui.table.JBTable;
-
-import club.gclmit.chaos.core.utils.BeanUtils;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * TODO

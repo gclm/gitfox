@@ -1,23 +1,20 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.List;
-
-import javax.swing.*;
-
-import org.jetbrains.annotations.NotNull;
-
-import com.intellij.icons.AllIcons;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.ui.AnActionButton;
-import com.intellij.ui.DoubleClickListener;
-import com.intellij.ui.ToolbarDecorator;
-
-import club.gclmit.chaos.core.utils.BeanUtils;
+import club.gclmit.gear4j.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import com.intellij.icons.AllIcons;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.ui.DoubleClickListener;
+import com.intellij.ui.ToolbarDecorator;
+import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.List;
 
 /**
  * gitfox 配置视图
@@ -44,15 +41,14 @@ public class GitfoxSettingPanel {
 
         // init otherSettingPanel
         itemPanel.add(ToolbarDecorator.createDecorator(itemTable).setAddAction(button -> itemTable.addGitfoxServer())
-            .setRemoveAction(button -> itemTable.removeSelectedGitfoxServers())
-            .setEditAction(button -> itemTable.editGitfoxServer()).setMoveUpAction(button -> itemTable.moveUp())
-            .setMoveDownAction(button -> itemTable.moveDown())
-            .addExtraAction(new AnActionButton("Reset Default CommitServer", AllIcons.Actions.Rollback) {
-                @Override
-                public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
-                    itemTable.reset(GitfoxState.loadDefaultSettings().getItems());
-                }
-            }).createPanel(), BorderLayout.CENTER);
+                .setRemoveAction(button -> itemTable.removeSelectedGitfoxServers())
+                .setEditAction(button -> itemTable.editGitfoxServer()).setMoveUpAction(button -> itemTable.moveUp())
+                .setMoveDownAction(button -> itemTable.moveDown()).addExtraAction(new AnAction(() -> "Reset Default CommitServer", AllIcons.Actions.Rollback) {
+                    @Override
+                    public void actionPerformed(@NotNull AnActionEvent anActionEvent) {
+                        itemTable.reset(GitfoxState.loadDefaultSettings().getItems());
+                    }
+                }).createPanel(), BorderLayout.CENTER);
         new DoubleClickListener() {
             @Override
             protected boolean onDoubleClick(@NotNull MouseEvent e) {
@@ -83,8 +79,8 @@ public class GitfoxSettingPanel {
     }
 
     public Gitfox getGitfox() {
-        gitfox.setStyle((String)styles.getSelectedItem());
-        gitfox.setLanguage((String)languages.getSelectedItem());
+        gitfox.setStyle((String) styles.getSelectedItem());
+        gitfox.setLanguage((String) languages.getSelectedItem());
         gitfox.setItems(itemTable.getItems());
         return gitfox;
     }

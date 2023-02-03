@@ -7,7 +7,7 @@ plugins {
     // Java support
     id("java")
     // Gradle IntelliJ Plugin
-    id("org.jetbrains.intellij") version "1.7.0"
+    id("org.jetbrains.intellij") version "1.10.0"
     // Gradle Changelog Plugin
     id("org.jetbrains.changelog") version "1.3.1"
     // Gradle Qodana Plugin
@@ -20,13 +20,20 @@ version = properties("pluginVersion")
 // Configure project's dependencies
 repositories {
     mavenLocal()
+    maven {
+        setUrl("https://repo.huaweicloud.com/repository/maven/")
+    }
     mavenCentral()
 }
 
+
+
 dependencies {
-    implementation("club.gclmit:chaos-core:2.5.0")
-    compileOnly("org.projectlombok:lombok:1.18.4")
-    annotationProcessor("org.projectlombok:lombok:1.18.4")
+    val gear4jVersion = "2.6.3"
+    val lombokVersion = "1.18.24"
+    implementation("club.gclmit:gear4j-core:${gear4jVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    compileOnly("org.projectlombok:lombok:${lombokVersion}")
 }
 
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
@@ -75,7 +82,7 @@ tasks {
 
     patchPluginXml {
         version.set(properties("pluginVersion"))
-        sinceBuild.set(properties("pluginSinceBuild"))
+//        sinceBuild.set(properties("pluginSinceBuild"))
 //        untilBuild.set(properties("pluginUntilBuild"))
 
         // Extract the <!-- Plugin description --> section from README.md and provide for the plugin's manifest
