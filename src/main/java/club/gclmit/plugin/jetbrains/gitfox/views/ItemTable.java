@@ -1,7 +1,7 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.gear4j.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import cn.hutool.extra.cglib.CglibUtil;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.table.JBTable;
@@ -130,7 +130,7 @@ public class ItemTable extends JBTable {
     }
 
     public void reset(List<Item> data) {
-        items = BeanUtils.copyList(data, Item.class);
+        items = data;
         foxServerTableModel.fireTableDataChanged();
     }
 

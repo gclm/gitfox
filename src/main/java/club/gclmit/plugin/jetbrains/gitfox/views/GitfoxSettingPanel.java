@@ -1,9 +1,9 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.gear4j.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import cn.hutool.extra.cglib.CglibUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -29,7 +29,6 @@ public class GitfoxSettingPanel {
     private JComboBox<String> languages;
     private JComboBox<String> styles;
 
-    // 自定义配置
     /**
      * ItemTable
      */
@@ -58,7 +57,7 @@ public class GitfoxSettingPanel {
     }
 
     public void reset(Gitfox data) {
-        gitfox = BeanUtils.copyBean(data, Gitfox.class);
+        gitfox = CglibUtil.copy(data, Gitfox.class);
         if (itemTable != null) {
             itemTable.reset(gitfox.getItems());
         }

@@ -60,8 +60,8 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
         gitfox.setStyle(DEFAULT_STYLE);
         gitfox.setLanguage(DEFAULT_LANGUAGE);
         List<Item> items = new LinkedList<>();
-        items.add(new Item("gitmoji", "https://gclm-generic.pkg.coding.net/apps/gitfox/gitmoji.json?version=latest"));
-        items.add(new Item("angular", "https://gclm-generic.pkg.coding.net/apps/gitfox/angular.json?version=latest"));
+        items.add(new Item("gitmoji", "https://gitcode.net/gclmit/gitfox/-/raw/master/gitmoji.json"));
+        items.add(new Item("angular", "https://gitcode.net/gclmit/gitfox/-/raw/master/angular.json"));
         gitfox.setItems(items);
         return gitfox;
     }

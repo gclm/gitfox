@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * CommitGuide
@@ -14,8 +12,6 @@ import lombok.EqualsAndHashCode;
  * @since 2022/3/7 5:34 PM
  * @since jdk11
  */
-@Data
-@EqualsAndHashCode(callSuper = false)
 public class CommitGuide implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,4 +38,28 @@ public class CommitGuide implements Serializable {
     @JSONField(name = "description_en")
     private String descriptionEn;
 
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescriptionEn() {
+        return descriptionEn;
+    }
+
+    public void setDescriptionEn(String descriptionEn) {
+        this.descriptionEn = descriptionEn;
+    }
 }

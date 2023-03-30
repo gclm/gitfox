@@ -7,6 +7,7 @@ import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptorFactory;
 import club.gclmit.plugin.jetbrains.gitfox.model.Constant;
 
 public class LicenseTemplateGroupDescriptorFactory implements FileTemplateGroupDescriptorFactory {
+
     @Override
     public FileTemplateGroupDescriptor getFileTemplatesDescriptor() {
         FileTemplateGroupDescriptor group = new FileTemplateGroupDescriptor("Licenses", AllIcons.FileTypes.Text);

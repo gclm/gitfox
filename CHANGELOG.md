@@ -4,19 +4,17 @@
 
 ## [Unreleased]
 
-### Added
-
 ### Changed
 
 - 更新配置文件地址
 
 ### Deprecated
 
-### Removed
+- 升级Gradle IntelliJ Plugin到1.13.3
+- 升级Gradle Changelog Plugin到2.0.0
+- 去除gear4j依赖替换为hutool
+- 删除lombok依赖
 
-### Fixed
-
-### Security
 
 ## [0.5.0] - 2022-12-01
 

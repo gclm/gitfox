@@ -1,11 +1,11 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.gear4j.core.utils.BeanUtils;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import club.gclmit.plugin.jetbrains.gitfox.views.GitfoxSettingPanel;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.extra.cglib.CglibUtil;
 import com.intellij.openapi.options.SearchableConfigurable;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NonNls;
@@ -55,9 +55,6 @@ public class GitfoxConfig implements SearchableConfigurable {
         return gitfoxSettingPanel.getMainPanel();
     }
 
-    /**
-     * 检测是否有修改
-     */
     @Override
     public boolean isModified() {
         if (gitfoxSettingPanel != null) {
@@ -99,7 +96,7 @@ public class GitfoxConfig implements SearchableConfigurable {
         if (gitfoxSettingPanel != null) {
             Gitfox gitfox = gitfoxSettingPanel.getGitfox();
             if (gitfox != null) {
-                gitfoxState.loadState(BeanUtils.copyBean(gitfox, Gitfox.class));
+                gitfoxState.loadState(CglibUtil.copy(gitfox, Gitfox.class));
             }
         }
     }

@@ -1,11 +1,11 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
-import club.gclmit.gear4j.core.utils.StringUtils;
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
+import cn.hutool.core.util.StrUtil;
 import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.RepositoryImpl;
 import com.intellij.dvcs.repo.VcsRepositoryManager;
@@ -34,6 +34,9 @@ public class CommitGuidePanel {
 
     public CommitGuidePanel(Project project) {
         Gitfox gitfox = GitfoxState.getInstance().getState();
+        if (null == gitfox) {
+            gitfox = GitfoxState.loadDefaultSettings();
+        }
         Item item = Item.getItem(gitfox.getItems(), gitfox.getStyle(), true);
         String url = null != item ? item.getValue() : null;
 
@@ -54,7 +57,7 @@ public class CommitGuidePanel {
 
         commitTemplateList.addItemListener(event -> {
             if (ItemEvent.SELECTED == event.getStateChange()) {
-                String content = StringUtils.subBetween(event.getItem().toString(), "(", ")");
+                String content = StrUtil.subBetween(event.getItem().toString(), "(", ")");
                 for (CommitGuide message : templateList) {
                     if (content.equals(message.getDescription()) || content.equals(message.getDescriptionEn())) {
                         currentMessage = message;
@@ -74,7 +77,7 @@ public class CommitGuidePanel {
         String commitMessage = String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(),
             shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH));
 
-        if (StringUtils.isNotBlank(branch) && showBranchCheckBox.isSelected()) {
+        if (StrUtil.isNotBlank(branch) && showBranchCheckBox.isSelected()) {
             commitMessage = String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(),
                 shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH),
                 branch);

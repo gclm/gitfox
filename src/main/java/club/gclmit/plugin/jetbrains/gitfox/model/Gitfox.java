@@ -3,7 +3,6 @@ package club.gclmit.plugin.jetbrains.gitfox.model;
 import java.util.List;
 import java.util.Objects;
 
-import lombok.Data;
 
 /**
  * 插件配置
@@ -12,8 +11,8 @@ import lombok.Data;
  * @since 2022/6/29 14:13
  * @since jdk11
  */
-@Data
 public class Gitfox {
+
     private String style;
     private String language;
     private List<Item> items;
@@ -34,5 +33,30 @@ public class Gitfox {
     @Override
     public int hashCode() {
         return Objects.hash(style, language, items);
+    }
+
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }
