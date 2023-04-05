@@ -1,22 +1,25 @@
 package club.gclmit.plugin.jetbrains.gitfox.views;
 
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.swing.*;
+
+import org.apache.commons.lang.WordUtils;
+
+import com.intellij.dvcs.repo.Repository;
+import com.intellij.dvcs.repo.RepositoryImpl;
+import com.intellij.dvcs.repo.VcsRepositoryManager;
+import com.intellij.openapi.project.Project;
+
 import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
 import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
 import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
 import cn.hutool.core.util.StrUtil;
-import com.intellij.dvcs.repo.Repository;
-import com.intellij.dvcs.repo.RepositoryImpl;
-import com.intellij.dvcs.repo.VcsRepositoryManager;
-import com.intellij.openapi.project.Project;
-import org.apache.commons.lang.WordUtils;
-
-import javax.swing.*;
-import java.awt.event.ItemEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author gclm
@@ -34,9 +37,6 @@ public class CommitGuidePanel {
 
     public CommitGuidePanel(Project project) {
         Gitfox gitfox = GitfoxState.getInstance().getState();
-        if (null == gitfox) {
-            gitfox = GitfoxState.loadDefaultSettings();
-        }
         Item item = Item.getItem(gitfox.getItems(), gitfox.getStyle(), true);
         String url = null != item ? item.getValue() : null;
 

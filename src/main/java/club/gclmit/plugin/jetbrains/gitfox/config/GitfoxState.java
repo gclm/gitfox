@@ -1,17 +1,19 @@
 package club.gclmit.plugin.jetbrains.gitfox.config;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
+import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 
 /**
  * gitfox 存储模块
@@ -23,7 +25,7 @@ import java.util.List;
 
 @State(name = "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState", storages = @Storage("gitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
-    public static final String DEFAULT_STYLE = "gitmoji";
+    public static final String DEFAULT_STYLE = "Gitmoji";
     public static final String DEFAULT_LANGUAGE = "English";
 
     public static List<String> LANGUAGE_List = new ArrayList<>(5);
@@ -60,8 +62,8 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
         gitfox.setStyle(DEFAULT_STYLE);
         gitfox.setLanguage(DEFAULT_LANGUAGE);
         List<Item> items = new LinkedList<>();
-        items.add(new Item("gitmoji", "https://gitcode.net/gclmit/gitfox/-/raw/master/gitmoji.json"));
-        items.add(new Item("angular", "https://gitcode.net/gclmit/gitfox/-/raw/master/angular.json"));
+        items.add(new Item("Gitmoji", "https://gitcode.net/gclmit/gitfox/-/raw/master/gitmoji.json"));
+        items.add(new Item("Angular", "https://gitcode.net/gclmit/gitfox/-/raw/master/angular.json"));
         gitfox.setItems(items);
         return gitfox;
     }
