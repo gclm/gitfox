@@ -6,16 +6,22 @@ permissions:
 
 # 推送的tag中以v开头则执行此action
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
 
 jobs:
-  build-release:
+  build:
+    name: Build
     runs-on: "ubuntu-latest"
     steps:
       - name: "Checkout code"
         uses: actions/checkout@v3
+
+      # Validate wrapper
+      - name: Gradle Wrapper Validation
+        uses: gradle/wrapper-validation-action@v1.0.4
 
       # 配置JDK
       - name: Setup Java
@@ -30,16 +36,20 @@ jobs:
         id: properties
         shell: bash
         run: |
-          CHANGELOG="$(cat << 'EOM' | sed -e 's/^[[:space:]]*$//g' -e '/./,$!d'
-          ${{ github.event.release.body }}
-          EOM
-          )"
-
+          PROPERTIES="$(./gradlew properties --console=plain -q)"
+          VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
+          NAME="$(echo "$PROPERTIES" | grep "^pluginName:" | cut -f2- -d ' ')"
+          CHANGELOG="$(./gradlew getChangelog --unreleased --no-header --console=plain -q)"
           CHANGELOG="${CHANGELOG//'%'/'%25'}"
           CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
           CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
 
+          echo "::set-output name=version::$VERSION"
+          echo "::set-output name=name::$NAME"
           echo "::set-output name=changelog::$CHANGELOG"
+          echo "::set-output name=pluginVerifierHomeDir::~/.pluginVerifier"
+
+          ./gradlew listProductsReleases # prepare list of IDEs for Plugin Verifier
 
       # 生成版本日志
       - name: Patch Changelog
@@ -53,6 +63,8 @@ jobs:
       - name: Build Plugin
         run: |
           ./gradlew clean buildPlugin
+          cd ${{ github.workspace }}/build/distributions
+          ls -l
 
       # 创建Release
       - name: Create Release
@@ -73,6 +85,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/distributions/gitfox-${{ github.ref }}.zip
-          asset_name: gitfox-${{ github.ref }}.zip
+          asset_path: ./build/distributions/gitfox-${{ steps.properties.outputs.version }}.zip
+          asset_name: gitfox-${{ steps.properties.outputs.version }}.zip
           asset_content_type: application/zip
