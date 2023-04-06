@@ -1,5 +1,6 @@
 package club.gclmit.plugin.jetbrains.gitfox.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -8,11 +9,15 @@ import java.util.List;
  *
  * @author gclm
  */
-public class Item {
+public class Item implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String key;
     private String value;
 
+    public Item() {
+    }
 
     public Item(String key, String value) {
         this.key = key;
@@ -48,5 +53,13 @@ public class Item {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                '}';
     }
 }

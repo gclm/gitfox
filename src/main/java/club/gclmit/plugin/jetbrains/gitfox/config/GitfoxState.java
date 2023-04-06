@@ -46,6 +46,9 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     @Nullable
     @Override
     public Gitfox getState() {
+        if (null == gitfox) {
+            gitfox = loadDefaultSettings();
+        }
         return gitfox;
     }
 

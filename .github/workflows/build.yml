@@ -1,0 +1,78 @@
+name: Build and Release
+
+# 定义本Action需要对仓库中的文件进行写操作的权限。
+permissions:
+  contents: write
+
+# 推送的tag中以v开头则执行此action
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build-release:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout code"
+        uses: actions/checkout@v3
+
+      # 配置JDK
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 17
+          cache: gradle
+
+      # 设置环境变量
+      - name: Export Properties
+        id: properties
+        shell: bash
+        run: |
+          CHANGELOG="$(cat << 'EOM' | sed -e 's/^[[:space:]]*$//g' -e '/./,$!d'
+          ${{ github.event.release.body }}
+          EOM
+          )"
+
+          CHANGELOG="${CHANGELOG//'%'/'%25'}"
+          CHANGELOG="${CHANGELOG//$'\n'/'%0A'}"
+          CHANGELOG="${CHANGELOG//$'\r'/'%0D'}"
+
+          echo "::set-output name=changelog::$CHANGELOG"
+
+      # 生成版本日志
+      - name: Patch Changelog
+        if: ${{ steps.properties.outputs.changelog != '' }}
+        env:
+          CHANGELOG: ${{ steps.properties.outputs.changelog }}
+        run: |
+          ./gradlew patchChangelog --release-note="$CHANGELOG"
+
+      # 打包插件
+      - name: Build Plugin
+        run: |
+          ./gradlew clean buildPlugin
+
+      # 创建Release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      # 上传zip包
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/distributions/gitfox-${{ github.ref }}.zip
+          asset_name: gitfox-${{ github.ref }}.zip
+          asset_content_type: application/zip

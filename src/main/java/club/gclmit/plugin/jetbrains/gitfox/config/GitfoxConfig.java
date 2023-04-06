@@ -30,9 +30,6 @@ public class GitfoxConfig implements SearchableConfigurable {
 
     public GitfoxConfig() {
         gitfoxState = GitfoxState.getInstance();
-        if (null == gitfoxState.getState()) {
-            gitfoxState.loadState(GitfoxState.loadDefaultSettings());
-        }
     }
 
     @Override
