@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Deprecated
+
+- 升级Gradle IntelliJ Plugin到1.15.0
+- 删除Gradle qodana Plugin插件
+
+
+## [1.0.0] - 2023-04-06
+
 ### Changed
 
 - 更新配置文件地址
