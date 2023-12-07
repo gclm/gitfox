@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.swing.*;
 
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.text.WordUtils;
 
 import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.RepositoryImpl;
