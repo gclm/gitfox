@@ -1,5 +1,6 @@
 package club.gclmit.plugin.jetbrains.gitfox.model;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +15,7 @@ import java.util.Objects;
  */
 public class Gitfox implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String style;
