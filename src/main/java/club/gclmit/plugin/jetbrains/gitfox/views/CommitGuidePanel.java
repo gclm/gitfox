@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.*;
 
-import org.apache.commons.text.WordUtils;
 
 import com.intellij.dvcs.repo.Repository;
 import com.intellij.dvcs.repo.RepositoryImpl;
@@ -43,15 +42,14 @@ public class CommitGuidePanel {
         List<CommitGuide> templateList = CommitGuideService.getCommitGuideRule(url);
         currentMessage = templateList.get(0);
         for (CommitGuide message : templateList) {
-            String content = GitfoxState.DEFAULT_LANGUAGE.equals(gitfox.getLanguage())
-                ? message.getCode() + "(" + message.getDescriptionEn() + ")"
-                : message.getCode() + "(" + message.getDescription() + ")";
+            String content = GitfoxState.DEFAULT_LANGUAGE.equals(gitfox.getLanguage()) ? message.getCode() + "("
+                + message.getDescriptionEn() + ")" : message.getCode() + "(" + message.getDescription() + ")";
             commitTemplateList.addItem(content);
         }
 
         Collection<Repository> repositories = VcsRepositoryManager.getInstance(project).getRepositories();
         if (!repositories.isEmpty()) {
-            String currentBranchName = ((RepositoryImpl)((ArrayList<?>)repositories).get(0)).getCurrentBranchName();
+            String currentBranchName = ((RepositoryImpl) ((ArrayList<?>) repositories).get(0)).getCurrentBranchName();
             gitBranch.setText(currentBranchName);
         }
 
@@ -75,12 +73,11 @@ public class CommitGuidePanel {
     public String getCommitMessage() {
         String branch = gitBranch.getText().trim();
         String commitMessage = String.format(CommitGuide.COMMIT_GUIDE_TEMPLATE, currentMessage.getCode(),
-            shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH));
+            shortDescription.getText(), longDescription.getText());
 
         if (StrUtil.isNotBlank(branch) && showBranchCheckBox.isSelected()) {
             commitMessage = String.format(CommitGuide.COMMIT_GUIDE_BRANCH_TEMPLATE, currentMessage.getCode(),
-                shortDescription.getText(), WordUtils.wrap(longDescription.getText(), CommitGuide.MAX_LINE_LENGTH),
-                branch);
+                shortDescription.getText(), longDescription.getText(), branch);
         }
         return skipCiCheckBox.isSelected() ? commitMessage + CommitGuide.CI_TEMPLATE : commitMessage;
     }

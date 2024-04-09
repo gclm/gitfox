@@ -29,9 +29,9 @@ repositories {
 
 dependencies {
     implementation("cglib:cglib:3.3.0")
-    implementation("cn.hutool:hutool-extra:5.8.16")
-    implementation("cn.hutool:hutool-http:5.8.16")
-    implementation("cn.hutool:hutool-core:5.8.16")
+    implementation("cn.hutool:hutool-extra:5.8.25")
+    implementation("cn.hutool:hutool-http:5.8.25")
+    implementation("cn.hutool:hutool-core:5.8.25")
     implementation("com.alibaba:fastjson:1.2.83")
 }
 
