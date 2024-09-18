@@ -10,6 +10,9 @@ import com.intellij.openapi.project.Project;
 
 import club.gclmit.plugin.jetbrains.gitfox.model.Constant;
 
+/**
+ * @author gclm
+ */
 public class LicenseTemplateGroup extends ActionGroup {
 
     public LicenseTemplateGroup() {

@@ -16,13 +16,10 @@ import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
 import club.gclmit.plugin.jetbrains.gitfox.model.Item;
 
 /**
- * gitfox 存储模块
+ * Gitfox 存储模块
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
- * @since 2022/6/29 14:11
- * @since jdk11
  */
-
 @State(name = "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState", storages = @Storage("gitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
     public static final String DEFAULT_STYLE = "Gitmoji";
@@ -37,7 +34,8 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
 
     private Gitfox gitfox;
 
-    public GitfoxState() {}
+    public GitfoxState() {
+    }
 
     public static GitfoxState getInstance() {
         return ApplicationManager.getApplication().getService(GitfoxState.class);

@@ -17,7 +17,6 @@ import club.gclmit.plugin.jetbrains.gitfox.views.CommitGuideDialog;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/6/29 11:45
- * @since jdk11
  */
 public class CommitGuideAction extends DumbAwareAction {
 

@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  * @since 2022/6/29 14:32
- * @since jdk11
  */
 public class GitfoxConfig implements SearchableConfigurable {
 
@@ -57,9 +56,6 @@ public class GitfoxConfig implements SearchableConfigurable {
         if (gitfoxSettingPanel != null) {
             Gitfox gitfox = gitfoxSettingPanel.getGitfox();
             if (gitfox != null) {
-                System.out.println("1:" + gitfox);
-                System.out.println("2:" + gitfoxState.getState());
-                System.out.println("3:" + ObjectUtil.equals(gitfox, gitfoxState.getState()));
                 if (!ObjectUtil.equals(gitfox, gitfoxState.getState())) {
                     List<String> updateStyles =
                         gitfox.getItems().stream().map(Item::getKey).collect(Collectors.toList());

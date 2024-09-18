@@ -6,6 +6,9 @@ import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptorFactory;
 
 import club.gclmit.plugin.jetbrains.gitfox.model.Constant;
 
+/**
+ * @author gclm
+ */
 public class LicenseTemplateGroupDescriptorFactory implements FileTemplateGroupDescriptorFactory {
 
     @Override
