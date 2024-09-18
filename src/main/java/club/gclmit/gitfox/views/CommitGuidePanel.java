@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.views;
+package club.gclmit.gitfox.views;
 
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -13,11 +13,11 @@ import com.intellij.dvcs.repo.RepositoryImpl;
 import com.intellij.dvcs.repo.VcsRepositoryManager;
 import com.intellij.openapi.project.Project;
 
-import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
-import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
-import club.gclmit.plugin.jetbrains.gitfox.services.CommitGuideService;
+import club.gclmit.gitfox.config.GitfoxState;
+import club.gclmit.gitfox.model.CommitGuide;
+import club.gclmit.gitfox.model.Gitfox;
+import club.gclmit.gitfox.model.Item;
+import club.gclmit.gitfox.services.CommitGuideService;
 import cn.hutool.core.util.StrUtil;
 
 /**

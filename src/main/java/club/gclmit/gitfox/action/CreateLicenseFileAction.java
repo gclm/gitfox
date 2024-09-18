@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.config;
+package club.gclmit.gitfox.action;
 
 import org.jetbrains.annotations.Nullable;
 

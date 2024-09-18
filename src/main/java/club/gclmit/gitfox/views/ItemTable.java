@@ -1,7 +1,6 @@
-package club.gclmit.plugin.jetbrains.gitfox.views;
+package club.gclmit.gitfox.views;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
-import cn.hutool.extra.cglib.CglibUtil;
+import club.gclmit.gitfox.model.Item;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.table.JBTable;

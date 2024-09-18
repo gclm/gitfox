@@ -1,8 +1,8 @@
-package club.gclmit.plugin.jetbrains.gitfox.config;
+package club.gclmit.gitfox.config;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
-import club.gclmit.plugin.jetbrains.gitfox.views.GitfoxSettingPanel;
+import club.gclmit.gitfox.model.Gitfox;
+import club.gclmit.gitfox.model.Item;
+import club.gclmit.gitfox.views.GitfoxSettingPanel;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.extra.cglib.CglibUtil;
@@ -33,7 +33,7 @@ public class GitfoxConfig implements SearchableConfigurable {
 
     @Override
     public @NotNull @NonNls String getId() {
-        return "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxConfig";
+        return "club.gclmit.gitfox.config.GitfoxConfig";
     }
 
     @Nls(capitalization = Nls.Capitalization.Title)

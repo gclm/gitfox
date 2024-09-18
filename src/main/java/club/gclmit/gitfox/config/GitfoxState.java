@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.config;
+package club.gclmit.gitfox.config;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,15 +12,15 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import club.gclmit.gitfox.model.Gitfox;
+import club.gclmit.gitfox.model.Item;
 
 /**
  * Gitfox 存储模块
  *
  * @author <a href="https://blog.gclmit.club">gclm</a>
  */
-@State(name = "club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState", storages = @Storage("gitfoxState.xml"))
+@State(name = "club.gclmit.gitfox.GitfoxState", storages = @Storage("gitfoxState.xml"))
 public class GitfoxState implements PersistentStateComponent<Gitfox> {
     public static final String DEFAULT_STYLE = "Gitmoji";
     public static final String DEFAULT_LANGUAGE = "English";
@@ -28,7 +28,7 @@ public class GitfoxState implements PersistentStateComponent<Gitfox> {
     public static List<String> LANGUAGE_List = new ArrayList<>(5);
 
     static {
-        LANGUAGE_List.add("Chinese");
+        LANGUAGE_List.add("中文");
         LANGUAGE_List.add("English");
     }
 

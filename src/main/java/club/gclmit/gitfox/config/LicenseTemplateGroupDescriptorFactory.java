@@ -1,10 +1,10 @@
-package club.gclmit.plugin.jetbrains.gitfox.config;
+package club.gclmit.gitfox.config;
 
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptorFactory;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.Constant;
+import club.gclmit.gitfox.model.Constant;
 
 /**
  * @author gclm

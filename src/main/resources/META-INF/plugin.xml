@@ -9,24 +9,23 @@
     <depends>com.intellij.modules.vcs</depends>
 
     <actions>
-        <action id="commitGuideAction" class="club.gclmit.plugin.jetbrains.gitfox.config.CommitGuideAction"
+        <action id="commitGuideAction" class="club.gclmit.gitfox.action.CommitGuideAction"
                 text="Gitfox Commit Guide" icon="/icons/logo.svg">
             <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
         </action>
 
-        <!--  -->
-        <group class="club.gclmit.plugin.jetbrains.gitfox.config.LicenseTemplateGroup"
-               id="club.gclmit.plugin.jetbrains.gitfox.config.LicenseTemplateGroup">
+        <group class="club.gclmit.gitfox.action.LicenseTemplateGroupAction"
+               id="club.gclmit.gitfox.action.LicenseTemplateGroupAction">
             <add-to-group group-id="NewGroup" relative-to-action="NewFromTemplate" anchor="before"/>
         </group>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxConfig"
-                                 id="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxConfig"
+        <applicationConfigurable parentId="tools" instance="club.gclmit.gitfox.config.GitfoxConfig"
+                                 id="club.gclmit.gitfox.config.GitfoxConfig"
                                  displayName="Gitfox"/>
-        <applicationService serviceImplementation="club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState"/>
-        <fileTemplateGroup implementation="club.gclmit.plugin.jetbrains.gitfox.config.LicenseTemplateGroupDescriptorFactory"/>
+        <applicationService serviceImplementation="club.gclmit.gitfox.config.GitfoxState"/>
+        <fileTemplateGroup implementation="club.gclmit.gitfox.config.LicenseTemplateGroupDescriptorFactory"/>
     </extensions>
 
 

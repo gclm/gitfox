@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.views;
+package club.gclmit.gitfox.views;
 
 import javax.swing.*;
 

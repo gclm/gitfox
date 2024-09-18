@@ -1,8 +1,8 @@
-package club.gclmit.plugin.jetbrains.gitfox.views;
+package club.gclmit.gitfox.views;
 
-import club.gclmit.plugin.jetbrains.gitfox.config.GitfoxState;
-import club.gclmit.plugin.jetbrains.gitfox.model.Gitfox;
-import club.gclmit.plugin.jetbrains.gitfox.model.Item;
+import club.gclmit.gitfox.config.GitfoxState;
+import club.gclmit.gitfox.model.Gitfox;
+import club.gclmit.gitfox.model.Item;
 import cn.hutool.extra.cglib.CglibUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;

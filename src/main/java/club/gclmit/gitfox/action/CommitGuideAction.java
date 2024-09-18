@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.config;
+package club.gclmit.gitfox.action;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -10,7 +10,7 @@ import com.intellij.openapi.vcs.CommitMessageI;
 import com.intellij.openapi.vcs.VcsDataKeys;
 import com.intellij.openapi.vcs.ui.Refreshable;
 
-import club.gclmit.plugin.jetbrains.gitfox.views.CommitGuideDialog;
+import club.gclmit.gitfox.views.CommitGuideDialog;
 
 /**
  * 提交规范Action

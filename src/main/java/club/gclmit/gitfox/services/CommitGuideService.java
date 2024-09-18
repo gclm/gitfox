@@ -1,14 +1,10 @@
-package club.gclmit.plugin.jetbrains.gitfox.services;
+package club.gclmit.gitfox.services;
 
-import club.gclmit.plugin.jetbrains.gitfox.model.CommitGuide;
+import club.gclmit.gitfox.model.CommitGuide;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSONArray;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.List;
 
 /**

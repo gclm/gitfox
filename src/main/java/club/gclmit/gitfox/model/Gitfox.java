@@ -1,4 +1,4 @@
-package club.gclmit.plugin.jetbrains.gitfox.model;
+package club.gclmit.gitfox.model;
 
 import java.io.Serial;
 import java.io.Serializable;
